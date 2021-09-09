@@ -1,0 +1,5 @@
+server:
+  port: 7768
+spring:
+  application:
+    name: qr-code

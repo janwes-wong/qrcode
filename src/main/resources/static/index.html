@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维码生成器</title>
+</head>
+
+<style>
+    .wrapper {
+        width: 100%;
+        min-height: 800px;
+        background: #f7f9f7;
+    }
+
+    .wrapper .content {
+        margin: 0 auto;
+        width: 1200px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding-top: 1.5rem !important;
+    }
+
+    .wrapper .left {
+        width: 72%;
+        background: #fff;
+        min-height: 350px;
+        display: inline-block;
+        -webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
+        box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
+        position: relative;
+    }
+
+    .text .wordmain {
+        padding: 20px 33px 10px;
+        background: #ffffff;
+        min-height: 300px;
+        font-size: 30px;
+    }
+
+    .text .wordmain .text {
+        position: relative;
+    }
+
+    .text .wordmain .table {
+        width: 238px;
+        overflow: hidden;
+    }
+
+    .text .wordmain .texta {
+        margin-top: 20px;
+        width: 100%;
+        position: relative;
+        border: 1px solid #d9d9d9;
+        padding-bottom: 5px;
+        border-radius: 3px;
+        height: 150px;
+    }
+
+    .text .wordmain .ant-input {
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        resize: none;
+        width: 790px;
+        height: 150px;
+    }
+
+    .text .wordmain .texta span {
+        position: absolute;
+        margin-top: 20px;
+        right: 6px;
+        bottom: 2px;
+        font-size: 12px;
+    }
+
+    .text .wordmain .text p {
+        padding-top: 30px;
+        font-size: 14px;
+        color: #999;
+        text-align: center;
+    }
+
+    .text .wordmain .text {
+        position: relative;
+    }
+
+    .btn-collect {
+        margin: 0 0 30px 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+    }
+
+    .btn-collect .type {
+        display: inherit;
+    }
+
+    .btn-collect button {
+        width: 140px;
+        height: 42px;
+        margin: 0 12px;
+    }
+
+    .ant-btn {
+        line-height: 1.499;
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        border: 1px solid transparent;
+        -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+        box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+        cursor: pointer;
+        -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        height: 32px;
+        padding: 0 15px;
+        font-size: 14px;
+        border-radius: 4px;
+        color: rgba(0, 0, 0, .65);
+        background-color: #fff;
+        border-color: #d9d9d9;
+    }
+
+    .btn-collect button {
+        width: 140px;
+        height: 42px;
+        margin: 0 12px;
+    }
+
+    .ant-btn-primary {
+        color: #fff;
+        background-color: #08c680;
+        border-color: #08c680;
+        text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+        -webkit-box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+        box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    }
+
+    .btn-collect button span {
+        font-size: 16px;
+    }
+
+    .wrapper .rightcont {
+        width: 316px;
+        margin-left: 1.5rem;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .wrapper .ewmcont {
+        background: #fff;
+        min-height: 410px;
+        -webkit-box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
+        box-shadow: 0 2px 2px 0 rgb(0 0 0 / 5%);
+    }
+
+    .wrapper .ewmcont .wsc .cnt {
+        margin: auto;
+    }
+
+    em, i, ins, u {
+        font-style: normal;
+        text-decoration: none;
+    }
+
+    .wrapper .ewmcont .wsc .cnt img {
+        display: block;
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .wrapper .ewmcont .wsc .cnt em {
+        display: block;
+        text-align: center;
+        padding-top: 10px;
+        color: #999;
+        font-size: 14px;
+    }
+
+    .wrapper .ewmcont .wsc .cnt {
+        margin: auto;
+    }
+
+    .wrapper .ewmcont .wsc .cnt em {
+        display: block;
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+    .wrapper .ewmcont .btns {
+        width: 100%;
+        height: 80px;
+        padding: 0 25px;
+    }
+</style>
+
+<div class="wrapper center">
+    <div class="content">
+        <div class="left">
+            <div class="text">
+                <div class="wordmain">
+                    <div class="text">
+                        <div class="table"><i class="on">二维码生成器</i></div>
+                        <div class="texta">
+                            <textarea id="content" placeholder="请输入文字内容或url链接"
+                                      maxlength="3000"
+                                      class="ant-input"
+                                      rows="4"></textarea><span></span>
+                            <p>二维码生成有字数限制，最多可容纳2685个字母或635个汉字</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-collect">
+                    <div class="type">
+                        <button type="button" class="ant-btn" style="display: none;"><span>再建一个</span></button>
+                        <button type="button" id="generateButton" class="ant-btn ant-btn-primary">
+                            <span>生成二维码</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="rightcont fr">
+            <div class="ewmcont">
+                <div class="cnt" id="imgTemplate">
+                    <i><img src="data:image/png;base64,"></i><em>未生成</em>
+                </div>
+                <div class="cnt" id="imgReality" style="display: none;">
+                    <i><img id="generateUrl" src=""></i>
+                </div>
+            </div>
+            <div class="btns">
+                <div class="ha" style="display: none;">
+                    <button type="button" class="down ant-btn"><span>下载图片</span></button>
+                    <button type="button" class="beauty ant-btn"><span>二维码美化</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/jquery-3.3.1.min.js" type="text/javascript" charset="UTF-8"></script>
+<body>
+
+<script type="text/javascript">
+    $("#generateButton").click(function () {
+        let content = $("#content").val();
+        if (content == null || "" == content) {
+            alert("请输入内容");
+            return;
+        }
+        $("#imgTemplate").css('display', 'none');
+        $("#imgReality").css('display', 'block');
+        content = encodeURIComponent(content);
+        // 发送请求
+        $("#generateUrl").attr('src', "/qrcode/generate?content=" + content);
+    })
+</script>
+
+</body>
+</html>
