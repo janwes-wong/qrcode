@@ -1,13 +1,13 @@
 package com.janwes.qrcode;
 
-import com.google.zxing.WriterException;
 import com.janwes.qrcode.utils.QRCodeGenerator;
+import com.janwes.qrcode.utils.QRCodeUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
+import java.io.File;
 
 /**
  * @author Janwes
@@ -21,7 +21,12 @@ import java.io.IOException;
 public class QRCodeGenerateTest {
 
     @Test
-    public void codeTest() throws IOException, WriterException {
+    public void codeTest() {
         QRCodeGenerator.generateQRCodeImage("this is my qr code", 350, 350, "C:\\Users\\HZWJa\\Desktop\\QRCode.png");
+    }
+
+    @Test
+    public void testCode() {
+        System.out.println(QRCodeUtil.decode(new File("C:\\Users\\HZWJa\\Desktop\\20210909113820.jpg")));
     }
 }

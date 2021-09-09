@@ -12,11 +12,9 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author Janwes
@@ -232,21 +230,27 @@ public class QRCodeUtil {
      *
      * @param file 二维码图片
      * @return
-     * @throws Exception
      */
-    public static String decode(File file) throws Exception {
+    public static String decode(File file) {
         BufferedImage image;
-        image = ImageIO.read(file);
-        if (image == null) {
+        try {
+            image = ImageIO.read(file);
+            if (Objects.isNull(image)) {
+                return null;
+            }
+            BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
+            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+            Hashtable<DecodeHintType, Object> hints = new Hashtable<>();
+            hints.put(DecodeHintType.CHARACTER_SET, CHARSET);
+            hints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+            hints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+            Result result = new MultiFormatReader().decode(bitmap, hints);
+            // 获取二维码文本
+            return result.getText();
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(image);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-        Result result;
-        Hashtable<DecodeHintType, Object> hints = new Hashtable<>();
-        hints.put(DecodeHintType.CHARACTER_SET, CHARSET);
-        result = new MultiFormatReader().decode(bitmap, hints);
-        return result.getText();
     }
 
     /**
@@ -254,9 +258,8 @@ public class QRCodeUtil {
      *
      * @param path 二维码图片地址
      * @return
-     * @throws Exception
      */
-    public static String decode(String path) throws Exception {
+    public static String decode(String path) {
         return decode(new File(path));
     }
 
