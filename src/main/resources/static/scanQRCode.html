@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>scan qr code</title>
+    <script src="https://unpkg.com/html5-qrcode/html5-qrcode.min.js" type="text/javascript"/>
+</head>
+<body>
+<div style="width: 500px" id="reader"></div>
+
+</body>
+<script>
+    var cameraId;
+    // This method will trigger user permissions
+    Html5Qrcode.getCameras().then(devices => {
+        /**
+         * devices would be an array of objects of type:
+         * { id: "id", label: "label" }
+         */
+        if (devices && devices.length) {
+            // .. use this to start scanning.
+            if (devices.length > 1) {
+                // 前置摄像头
+                this.cameraId = devices[1].id;
+            } else {
+                // 后置摄像头
+                this.cameraId = devices[0].id;
+            }
+        }
+    }).catch(err => {
+        // handle err
+    });
+
+    function onScanSuccess(decodedText, decodedResult) {
+        // Handle on success condition with the decoded text or result.
+        console.log(`Scan result: ${decodedText}`, decodedResult);
+    }
+
+    var html5Qrcode = new Html5Qrcode(
+        "reader", {fps: 10, qrbox: 250});
+    html5Qrcode.render(onScanSuccess);
+</script>
+</html>
